@@ -5,16 +5,13 @@ require 'time'
 
 POOL_LANES = 8
 
-class Swimmer
-  attr_accessor :first_name, :last_name, :club, :category
-  attr_reader :birth_year
+class Team
+  attr_accessor :name, :club
 
-  def initialize(first_name = "", last_name = "", club = "", category = "")
-    @first_name = first_name
-    @last_name = last_name
+  def initialize(name = "", club = "", category = "")
+    @name = name
     @club = club
     @category = category
-    @birthyear = "1990"
   end
 end
 
@@ -92,48 +89,42 @@ CSV.foreach('ll_mannschaft.csv', :headers => true, :col_sep => ',', :encoding =>
       if row[2+i] == nil || row[2+i].length == 0
         setting[i] = nil
       else
-        first_name = row[2+i].split(',')[1].strip
-        last_name = row[2+i].split(',')[0]
-        setting[i] = Swimmer.new first_name, last_name, nil, nil
+        name = row[2+i].split(',')[0]
+        category = row[1].split(" ").last
+        setting[i] = Team.new name, nil, category
       end
     end
+    number = row[0]
+    category = row[1].split(" ")[1]
+    name = row[2]
+    distance = row[2].split(" ")[0].strip
+    event = Event.new number, name, distance, category
   elsif line == 2
     1.upto POOL_LANES do |i|
-      number = row[0]
-      category = row[1].split(" ")[2]
-      name = row[2]
-      club = row[3]
-      distance = row[2].split(" ")[0].strip
-      event = Event.new number, name, distance, category
-      
       setting.each do |key, value|
         value.club = row[2+key]unless value == nil
         event.heat[key] = value
       end
     end
-  elsif line == 3
-    1.upto POOL_LANES do |i|
-      event.heat[i].category = row[2+i].split(" ").last unless row[2+i] == nil || row[2+i].length == 0
-    end
   else
-    raise "We are on a line count > 3. This is wrong."
+    raise "We are on a line count > 2. This is wrong."
   end
 
-  if line < 3
+  if line == 1
     line += 1
-  elsif line == 3
+  elsif line == 2
     tournament.events.push event
     line = 1
   end
 end
 
-#tournament.events.each do |event|
-#  puts "###"
-#  puts event.number
-#  event.heat.each do |key, value|
-#    puts "#{key}: #{value.inspect}"
-#  end
-#end
+tournament.events.each do |event|
+  puts "###"
+  puts "#{event.number}: #{event.name}"
+  event.heat.each do |key, value|
+    puts "#{key}: #{value.inspect}"
+  end
+end
 
 #############
 #
@@ -153,9 +144,8 @@ tournament.events.each do |event|
     event_category = "mixed"
   end
    #Format string: #EventNumber, #Count #Distance #Number #Category
-  FileWriter.new("STEUER.TXT", sprintf("%-6s1 x%6s %-21s%s\r\n", event.number, event.name.match('\d*m')[0], event.name.match('\D+')[0][2,10], event_category))
-  puts event_category
-
+  FileWriter.new("STEUER.TXT", sprintf("%-6s1 x%6s %-21s%s\r\n", event.number, event.name.split(" ").first, event.name.split(" ").last[0..13], event_category))
+  puts event.name
   # NAM Files
   filename = sprintf("%05d", event.number) << "001.NAM"
   event.heat.each do |key, value|
@@ -164,7 +154,7 @@ tournament.events.each do |event|
       FileWriter.new filename, sprintf("%02d\r\n", key) 
     else
      #Format string #Whitespace #LaneNumber #LastName #FirstName, #Club
-     FileWriter.new filename, sprintf("%02d%-30s%-30s%-20s\r\n", key, value.last_name, value.first_name, value.club[0..19])
+     FileWriter.new filename, sprintf("%02d%-30s%-20s\r\n", key, value.name, value.club[0..19])
     end
   end
 end
