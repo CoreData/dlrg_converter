@@ -153,7 +153,7 @@ tournament.events.each do |event|
     event_category = "mixed"
   end
    #Format string: #EventNumber, #Count #Distance #Number #Category
-  FileWriter.new("STEUER.TXT", sprintf("%-6s1 x%6s %-21s%s\r\n", event.number, event.name.match('\d*m')[0], event.name.match('\D+')[0][2,16], event_category))
+  FileWriter.new("STEUER.TXT", sprintf("%-6s1 x%6s %-21s%s\r\n", event.number, event.name.match('\d*m')[0], event.name.match('\D+')[0][2,10], event_category))
 
   # NAM Files
   filename = sprintf("%05d", event.number) << "001.NAM"
