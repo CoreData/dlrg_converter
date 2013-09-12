@@ -1,3 +1,4 @@
 *.swp
 Ares/*
 OMEGA/*
+.DS_Store
