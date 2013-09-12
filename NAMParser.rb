@@ -75,6 +75,45 @@ class FileWriter
   end
 end
 
+#############
+#
+# Data processing
+#
+#############
+
+line = 1
+setting = Hash.new
+
+CSV.foreach('Laufliste.csv', :headers => true, :col_sep => ';', :encoding => 'iso-8859-1:UTF-8') do |row|
+  if line == 1
+    1.upto POOL_LANES do |i|
+      if row[2+i] == nil
+        setting[i] = nil
+      else
+        puts "#{i}: #{row[2+i]}"
+      end
+    end
+  elsif line == 2
+    puts "#{line}"
+  elsif line == 3
+    puts "#{line}"
+  else
+    raise "We are on a line count > 3. This is wrong."
+  end
+
+  if line < 3
+    line += 1
+  elsif line == 3
+    line = 1
+  end
+
+end
+
+#############
+#
+# File processing
+#
+#############
 # STEUER.TXT
   # We need a certain entry for the event category in this file
   #case event.category
