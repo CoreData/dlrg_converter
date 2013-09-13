@@ -1,0 +1,6 @@
+idStyle;Style;StyleAbrév
+0; "Freistilschwimmen"  ;"FR"
+1; "Rückenschwimmen  "  ;"BA"
+2; "Brustschwimmen   "  ;"BR"
+3; "Schmetterling    "  ;"BU"
+4; "Vermischt        "  ;"ME"

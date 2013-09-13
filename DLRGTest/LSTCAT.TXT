@@ -1,0 +1,5 @@
+"Kategorie";"AbrèvCat"
+"Männer";"M"
+"Damen";"W"
+"Knaben";"B"
+"Mädchen";"G"

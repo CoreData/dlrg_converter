@@ -1,0 +1,2 @@
+event;round;nbHeat;idLen;idStyle;abCat;date;time
+1 ;0 ;1 ;0 ;0 ;"M" ;"09/13/13" ;"00:00" ;
