@@ -47,14 +47,15 @@ class FileWriter
   def initialize(filename, payload)
     @filename = filename
     @payload = payload
-    @omega_dir = "OMEGA"
-    @ares_dir = "Ares"
     
-    Dir.mkdir(@omega_dir) unless File.exists? @omega_dir 
+    @scoreboard_dir = "_SCOREBOARD_"
+    @ares_dir = "_Ares_"
+
+    Dir.mkdir(@scoreboard_dir) unless File.exists? @scoreboard_dir 
     Dir.mkdir(@ares_dir) unless File.exists? @ares_dir
 
     if @filename == "STEUER.TXT" || @filename.match("NAM")
-      @filename = @omega_dir << "/" << @filename
+      @filename = @scoreboard_dir << "/" << @filename
     elsif @filename.match("LST")
       @filename = @ares_dir << "/" << @filename
     else
