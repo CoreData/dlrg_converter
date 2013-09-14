@@ -94,7 +94,7 @@ CSV.foreach('ll_mannschaft.csv', :headers => true, :col_sep => ',', :encoding =>
         setting[i] = Team.new name, nil, category
       end
     end
-    number = row[0]
+    number = row[0].to_i + 100
     category = row[1].split(" ")[1]
     name = row[2]
     distance = row[2].split(" ")[0].strip
@@ -118,13 +118,13 @@ CSV.foreach('ll_mannschaft.csv', :headers => true, :col_sep => ',', :encoding =>
   end
 end
 
-tournament.events.each do |event|
-  puts "###"
-  puts "#{event.number}: #{event.name}"
-  event.heat.each do |key, value|
-    puts "#{key}: #{value.inspect}"
-  end
-end
+#tournament.events.each do |event|
+#  puts "###"
+#  puts "#{event.number}: #{event.name}"
+#  event.heat.each do |key, value|
+#    puts "#{key}: #{value.inspect}"
+#  end
+#end
 
 #############
 #
@@ -144,8 +144,8 @@ tournament.events.each do |event|
     event_category = "mixed"
   end
    #Format string: #EventNumber, #Count #Distance #Number #Category
-  FileWriter.new("STEUER.TXT", sprintf("%-6s1 x%6s %-21s%s\r\n", event.number, event.name.split(" ").first, event.name.split(" ").last[0..13], event_category))
-  puts event.name
+  FileWriter.new("STEUER.TXT", sprintf("%-6s4 x%6s %-21s%s\r\n", event.number, event.name.split(" ").first, event.name.split(" ").last[0..13], event_category))
+
   # NAM Files
   filename = sprintf("%05d", event.number) << "001.NAM"
   event.heat.each do |key, value|
