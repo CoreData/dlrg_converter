@@ -124,7 +124,7 @@ tournament = Tournament.new "Salzpokal DLRG", "2013-09-14 09:00"
 styles = Storage.new
 distances = Storage.new
 
-CSV.foreach('ll_einzel.csv', :headers => true, :col_sep => ',', :encoding => 'iso-8859-1:UTF-8') do |row|
+CSV.foreach('ll_finals_einzel.csv', :headers => true, :col_sep => ';', :encoding => 'iso-8859-1:UTF-8') do |row|
   if line == 1
     1.upto POOL_LANES do |i|
       if row[2+i] == nil || row[2+i].length == 0
