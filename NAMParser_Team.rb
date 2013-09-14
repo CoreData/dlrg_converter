@@ -83,7 +83,7 @@ line = 1
 setting = Hash.new
 event = Event.new
 tournament = Tournament.new "Salzpokal DLRG", "2013-09-14 09:00"
-CSV.foreach('ll_mannschaft.csv', :headers => true, :col_sep => ',', :encoding => 'iso-8859-1:UTF-8') do |row|
+CSV.foreach('ll_finals_team.csv', :headers => true, :col_sep => ',', :encoding => 'iso-8859-1:UTF-8') do |row|
   if line == 1
     1.upto POOL_LANES do |i|
       if row[2+i] == nil || row[2+i].length == 0
@@ -144,7 +144,7 @@ tournament.events.each do |event|
     event_category = "mixed"
   end
    #Format string: #EventNumber, #Count #Distance #Number #Category
-  FileWriter.new("STEUER.TXT", sprintf("%-6s4 x%6s %-21s%s\r\n", event.number, event.name.split(" ").first, event.name.split(" ").last[0..13], event_category))
+  FileWriter.new("STEUER.TXT", sprintf("%-6s4 x%6s %-21s%s\r\n", event.number, event.name.split(" ").first, event.name.split(" ").last[0..10], event_category))
 
   # NAM Files
   filename = sprintf("%05d", event.number) << "001.NAM"
