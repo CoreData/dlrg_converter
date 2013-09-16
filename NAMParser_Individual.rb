@@ -24,7 +24,7 @@ class Event
   def initialize(number=0, name='', distance='', category='', heat={})
     @number = number
     @name = name
-    @distance = distance    
+    @distance = distance
     @category = category
     @heat = heat
   end
@@ -47,11 +47,11 @@ class FileWriter
   def initialize(filename, payload)
     @filename = filename
     @payload = payload
-    
+
     @scoreboard_dir = '_SCOREBOARD_'
     @ares_dir = '_Ares_'
 
-    Dir.mkdir(@scoreboard_dir) unless File.exists? @scoreboard_dir 
+    Dir.mkdir(@scoreboard_dir) unless File.exists? @scoreboard_dir
     Dir.mkdir(@ares_dir) unless File.exists? @ares_dir
 
     if @filename == 'STEUER.TXT' || @filename.match('NAM')
