@@ -208,9 +208,11 @@ tournament.events.each do |event|
     event_category = 'männlich'
   when 'gem.'
     event_category = 'mixed'
+  else
+    raise 'Unknown category.'
   end
    #Format string: #EventNumber, #Count #Distance #Number #Category
-  FileWriter.new("STEUER.TXT", sprintf("%-6s1 x%6s %-21s%s\r\n", event.number, event.name.match('\d*m')[0], event.name.match('\D+')[0][2,10], event_category))
+  FileWriter.new('STEUER.TXT', sprintf("%-6s1 x%6s %-21s%s\r\n", event.number, event.name.match('\d*m')[0], event.name.match('\D+')[0][2,10], event_category))
 
 #  FileWriter.new "LSTRACE.TXT", sprintf("%s;%s;%s;%s;%s;%s;%s;\r\n", event.number, 0,0,1,styles.style_id(event.name.match('\D+')[0][2,event.name.length]),tournament.date,tournament.start_time+1) 
   # NAM File
