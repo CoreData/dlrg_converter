@@ -1,6 +1,5 @@
 *.swp
-Ares/*
-OMEGA/*
+_Ares_/*
+_SCOREBOARD/*
 .DS_Store
 scratchpad.rb
-
