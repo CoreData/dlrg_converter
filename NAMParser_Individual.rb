@@ -220,10 +220,10 @@ tournament.events.each do |event|
   event.heat.each do |key, value|
     #puts "#{key.class}: #{value}"
     if value == nil
-      FileWriter.new filename, sprintf("%02d\r\n", key) 
+      FileWriter.new filename, sprintf("%d\r\n", key) 
     else
      #Format string #Whitespace #LaneNumber #LastName #FirstName, #Club
-     FileWriter.new filename, sprintf("%02d%-30s%-30s%-20s\r\n", key, value.last_name, value.first_name, value.club[0..19])
+     FileWriter.new filename, sprintf("%d%-30s%-30s%-20s\r\n", key, value.last_name, value.first_name, value.club[0..19])
     end
   end
 end
